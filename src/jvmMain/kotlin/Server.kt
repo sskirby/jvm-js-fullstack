@@ -11,23 +11,19 @@ import io.ktor.server.netty.*
 
 val shoppingList = mutableListOf(
     ShoppingListItem("Cucumbers \uD83E\uDD52", 1),
-    ShoppingListItem("Tomatoes \uD83C\uDF45", 1),
-    ShoppingListItem("Orange Juice \uD83C\uDF4A", 1),
+    ShoppingListItem("Tomatoes \uD83C\uDF45", 2),
+    ShoppingListItem("Orange Juice \uD83C\uDF4A", 3),
 )
 fun main() {
     embeddedServer(Netty, 9090) {
-        install(ContentNegotiation) {
-            json()
-        }
+        install(ContentNegotiation) { json() }
         install(CORS) {
             method(HttpMethod.Get)
             method(HttpMethod.Post)
             method(HttpMethod.Delete)
             anyHost()
         }
-        install(Compression) {
-            gzip()
-        }
+        install(Compression) { gzip() }
         routing {
             get("/") {
                 call.respondText(
